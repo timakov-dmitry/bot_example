@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
+yolo.h5
+image.jpg
+image_result.jpg
 
 # C extensions
 *.so
