@@ -3,6 +3,7 @@ from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
 from modules.password_generator.module import generate_password
 from modules.image_classificator.module import on_image, set_threshold_handler
+from modules.advice_generator.module import generate_advice
 
 
 updater = Updater(token='1685734491:AAEMp2ZOAy6Hya0U9LKF28IhLQzhomNcXDA', use_context=True)
@@ -19,12 +20,16 @@ def on_message(update, context):
 
 start_handler = CommandHandler('start', start)
 generate_password_handler = MessageHandler(Filters.text(['Пароль','пароль','password']), generate_password)
+advice_generator_handler = MessageHandler(Filters.text(['Дай совет','Что посоветуешь','совет']), generate_advice)
+
 set_threshold_handler = CommandHandler('set_threshold', set_threshold_handler)
 message_handler = MessageHandler(Filters.text & (~Filters.command), on_message)
 
 dispatcher.add_handler(generate_password_handler)
 dispatcher.add_handler(start_handler)
+dispatcher.add_handler(advice_generator_handler)
 dispatcher.add_handler(message_handler)
+
 dispatcher.add_handler(MessageHandler(Filters.photo, on_image))
 
 print('Bot started...')
