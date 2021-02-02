@@ -1,16 +1,8 @@
 from telegram.ext import Updater
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
-from imageai.Detection import ObjectDetection
-from random import randrange, choice
-
-threshold = 70
-import os
-
-detector = ObjectDetection()
-detector.setModelTypeAsYOLOv3()
-detector.setModelPath("yolo.h5")
-detector.loadModel()
+from modules.password_generator.module import generate_password
+from modules.image_classificator.module import on_image, set_threshold_handler
 
 
 updater = Updater(token='1685734491:AAEMp2ZOAy6Hya0U9LKF28IhLQzhomNcXDA', use_context=True)
@@ -21,37 +13,12 @@ def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Я могу находить объекты на изображениях")
 
 
-def set_threshold_handler(update, context):
-    threshold = 40
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Установила")
-
-
 def on_message(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Пришли картинку!")
 
 
-def on_image(update, context):
-    file = context.bot.getFile(update.message.photo[1].file_id)
-    file.download('image.jpg')
-    detections = detector.detectObjectsFromImage(input_image="image.jpg",
-                                                 output_image_path="image_result.jpg",
-                                                 minimum_percentage_probability=threshold)
-    text = ', '.join([image_object["name"] for image_object in detections])
-    context.bot.send_message(chat_id=update.effective_chat.id, text=text)
-    context.bot.send_photo(chat_id=update.effective_chat.id, photo=open('image_result.jpg', 'rb'))
-
-
-def generate_password(update, context):
-    symbols='1234567890-=qwertyuiopasdfghjklzxcvbnm,./!^&*()_+QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>?`~[]'
-    l = randrange(8,16)
-    password_ = ""
-    for t in range(l):
-        password_+= choice(symbols)
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Это твой пароль: "+password_+"\nНикому не сообщай его!")
-
-
-generate_password_handler = MessageHandler(Filters.text(['Пароль','пароль','password']), generate_password)
 start_handler = CommandHandler('start', start)
+generate_password_handler = MessageHandler(Filters.text(['Пароль','пароль','password']), generate_password)
 set_threshold_handler = CommandHandler('set_threshold', set_threshold_handler)
 message_handler = MessageHandler(Filters.text & (~Filters.command), on_message)
 
