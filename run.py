@@ -2,6 +2,8 @@ from telegram.ext import Updater
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
 from imageai.Detection import ObjectDetection
+from random import randrange, choice
+
 threshold = 70
 import os
 
@@ -39,10 +41,21 @@ def on_image(update, context):
     context.bot.send_photo(chat_id=update.effective_chat.id, photo=open('image_result.jpg', 'rb'))
 
 
+def generate_password(update, context):
+    symbols='1234567890-=qwertyuiopasdfghjklzxcvbnm,./!^&*()_+QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>?`~[]'
+    l = randrange(8,16)
+    password_ = ""
+    for i in range(l):
+        password_+= choice(symbols)
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Это твой пароль: "+password_+"\nНикому не сообщай его!")
+
+
+generate_password_handler = MessageHandler(Filters.text(['Пароль','пароль','password']), generate_password)
 start_handler = CommandHandler('start', start)
 set_threshold_handler = CommandHandler('set_threshold', set_threshold_handler)
 message_handler = MessageHandler(Filters.text & (~Filters.command), on_message)
 
+dispatcher.add_handler(generate_password_handler)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(message_handler)
 dispatcher.add_handler(MessageHandler(Filters.photo, on_image))
