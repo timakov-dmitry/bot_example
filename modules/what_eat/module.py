@@ -1,6 +1,7 @@
 from random import choice
 
-def chose_food():
+
+def chose_food(update, context):
     diction = {'drink': {'чай': [' черный, ', " зеленый, ", " белый, ", " красный, ", " фруктовый, "],
                          "сок": [" яблочный,", " апельсиновый, ", " персиковый, ", " грушевый, ", " виноградный," ],
                          "смузи": [" с бананом, ", " с клубникой, ", " с персиком, ", " с малиной, "]},
@@ -17,5 +18,4 @@ def chose_food():
         b = choice((value[a]))
         result += b
     result += '. Приятного аппетита!'
-    return result
-print(chose_food())
+    context.bot.send_message(chat_id=update.effective_chat.id, text=result)
