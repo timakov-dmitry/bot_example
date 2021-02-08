@@ -26,3 +26,7 @@ class Bot:
             self.dispatcher.add_handler(MessageHandler(Filters.photo, module.run))
         self.descriptions.append(description)
 
+    def register_handler(self, module, query: List[str], description: str = 'Описание модуля', module_type: str = 'message'):
+        self.dispatcher.add_handler(module.get_handler(query))
+        self.descriptions.append(description)
+
