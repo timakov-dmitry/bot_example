@@ -6,6 +6,7 @@ from modules.advice_generator.module import generate_advice_module
 from modules.password_generator.module import generate_password_module
 from modules.what_eat.module import chose_food_module
 from modules.vacancies.module import random_vacancy_module
+from modules.TS.module import random_TS_module
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -18,7 +19,7 @@ bot.register(object_detection_module, ['Пароль', 'пароль', 'password
 bot.register(generate_advice_module, ['Дай совет','Что посоветуешь','совет'], "А если напишешь мне 'совет' - я дам совет!")
 bot.register(chose_food_module, ['Что поесть',"Что выбрать поесть","еда","есть","поесть","что выбрать"], "А если напишешь мне 'еда' - я дам совет по еде!")
 bot.register(random_vacancy_module, ['Вакансия','Вакансии','Вакансии Курск', 'вакансия'], "А если напишешь мне 'вакансия' - я постараюсь найти вакансию твоей мечты в Норбит!")
-
+bot.register(random_TS_module, ['ТШ','TS','Тайм шит'], "Если напишишь 'тайм шит' - я постараюсь придумать текст для ТШ за тебя")
 bot.run()
 
 
