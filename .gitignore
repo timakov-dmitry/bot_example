@@ -5,6 +5,8 @@ __pycache__/
 modules/image_classificator/yolo.h5
 image.jpg
 image_result.jpg
+.idea
+config.ini
 
 # C extensions
 *.so
