@@ -17,7 +17,7 @@ token = config['TEST']['TOKEN']
 bot = Bot(token)
 
 bot.register(generate_password_module, ['Пароль', 'пароль', 'password'], "А если напишешь мне 'пароль' - я создам новый пароль!")
-bot.register(object_detection_module, ['Пароль', 'пароль', 'password'], "А если пришлешь мне фото - я найду на объекты!")
+bot.register(object_detection_module, ['Пароль', 'пароль', 'password'], "А если пришлешь мне фото - я найду на объекты!", module_type='image')
 bot.register(generate_advice_module, ['Дай совет','Что посоветуешь','совет'], "А если напишешь мне 'совет' - я дам совет!")
 bot.register(chose_food_module, ['Что поесть',"Что выбрать поесть","еда","есть","поесть","что выбрать"], "А если напишешь мне 'еда' - я дам совет по еде!")
 bot.register(hackernews_module, ['hackernews',"news","новости","какие новости","что нового"], "А если напишешь мне 'hackernews' - я расскажу тебе новости!")
