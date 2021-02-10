@@ -17,7 +17,7 @@ class TS(BaseModule):
         return (choice(TSs))
 
     def run(self, update, context):
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Generation TS"
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Generation TS")
         try:
             TS = TS.get_random_TS()
             message_text = '\n{0}\n<a href="{1}"><i>TS </i></a>'.format(TS['text'])
